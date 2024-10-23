@@ -20,11 +20,11 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
 
 # OS-specific configurations
 if (WIN32)
-    # Windows-specific settings
+    # Windows-specific settings using MinGW
 
     # Check for Raylib library
     if (NOT EXISTS "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
-        message(FATAL_ERROR "Error: raylib.lib not found in lib directory")
+        message(FATAL_ERROR "Error: libraylib.a not found in lib directory")
     endif()
 
     # Add Raylib as an imported library
@@ -35,8 +35,12 @@ if (WIN32)
     )
 
     # Link libraries
-    target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
-    
+    target_link_libraries(${PROJECT_NAME} PRIVATE raylib
+        -static-libgcc -static-libstdc++  # Statically link GCC and stdc++ libraries
+        opengl32
+        gdi32
+        winmm
+    )
 elseif (UNIX)
     # Unix-like OS (Linux, macOS)
 
