@@ -1,33 +1,37 @@
-cmake_minimum_required(VERSION 3.2)
-project(Kb_warrior LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.5)
+project(kb_warrior LANGUAGES CXX)
 
-set (Kb_warrior_VERSION_MAJOR_ 1)
-set (Kb_warrior_VERSION_MINOR 0)
-
-# Set C++ standard to C++11
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Set C++ standard to C++17
+set(CMAKE_CXX_STANDARD 17)
 
 # Include directories
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/depends/raylib)
+include_directories(inc)
 
-# Source files
-file(GLOB SOURCES "src/*.cpp")
+# Check for Raylib header
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/inc/raylib.h")
+    message(FATAL_ERROR "Error: raylib.h not found in inc directory")
+endif()
 
-# Add executable target
-add_executable(${PROJECT_NAME} ${SOURCES})
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
+    message(FATAL_ERROR "Error: raylib.a not found in lib directory")
+endif()
+
+# Add Raylib as an imported library
+add_library(raylib STATIC IMPORTED)
+set_target_properties(raylib PROPERTIES
+                        IMPORTED_LOCATION "{$CMAKE_SOURCE_DIR}/lib/libraylib.a"
+                        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/inc"
+)
+
+# Project executables
+file(GLOB SRC_FILES src/*.cpp)
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 # Library directories
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
+# link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
-
-# Set the output directory for the executable
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # CMAKE BUILD BASED ON SYSTEM
 # CMAKE_HOST_WIN32 # true on windows system, including win64
