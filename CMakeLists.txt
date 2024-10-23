@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(kb_warrior LANGUAGES CXX)
+project(KbWarrior LANGUAGES CXX)
 
 # Set C++ standard to C++17
 set(CMAKE_CXX_STANDARD 17)
