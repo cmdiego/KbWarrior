@@ -1,10 +1,11 @@
 # Ignore config
 .vs
-# Ignore external libs
-3rd_party
+.vscode
 # Ignore compiled binaries
 *.o
 *.exe
 *.bc
 *.so
 *.so.*
+# Ignore build directory
+./build
