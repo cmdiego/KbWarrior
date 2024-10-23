@@ -19,7 +19,7 @@ endif()
 # Add Raylib as an imported library
 add_library(raylib STATIC IMPORTED)
 set_target_properties(raylib PROPERTIES
-                        IMPORTED_LOCATION "{$CMAKE_SOURCE_DIR}/lib/libraylib.a"
+                        IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/libraylib.a"
                         INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/inc"
 )
 
@@ -31,7 +31,7 @@ add_executable(${PROJECT_NAME} ${SRC_FILES})
 # link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
 
 # CMAKE BUILD BASED ON SYSTEM
 # CMAKE_HOST_WIN32 # true on windows system, including win64
