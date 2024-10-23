@@ -8,4 +8,4 @@
 *.so
 *.so.*
 # Ignore build directory
-./build
+build
