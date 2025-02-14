@@ -1,5 +1,7 @@
 # KbWarrior: A Maze Runner
+
 Concept drawings: https://excalidraw.com/#room=031fda3208d7d9f5c746,yzJ7kqcLYsqaMB3Auh24pw
+
 Summary: We want to create a game that immerses the player in a typical maze traversal challenge.
 The player will have to discover the different routes in the map and also face challenging enemies.
 The player will move through the map and fight its way to the end by typing words.
