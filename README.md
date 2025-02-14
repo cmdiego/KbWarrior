@@ -1,4 +1,4 @@
-# KbWarrior: A Maze Runner
+# KbWarrior
 
 Concept drawings: https://excalidraw.com/#room=031fda3208d7d9f5c746,yzJ7kqcLYsqaMB3Auh24pw
 
