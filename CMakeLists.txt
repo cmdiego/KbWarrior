@@ -8,9 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Include directories
 include_directories(inc)
 
-# Add Raylib subdirectory
-add_subdirectory(external/raylib)
-
 # Check for Raylib header
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/inc/raylib.h")
     message(FATAL_ERROR "Error: raylib.h not found in inc directory")

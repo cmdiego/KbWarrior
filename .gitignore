@@ -8,6 +8,9 @@
 # Ignore lib
 /lib/
 
+#inc
+/inc/
+
 # CMake generated files
 CMakeCache.txt
 CMakeFiles/
