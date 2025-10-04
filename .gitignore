@@ -1,6 +1,10 @@
 # Ignore config
 .vs
-.vscode
+.vscode/
+.vscode/settings.json
+
+# Ignore clangd cache
+.cache/
 
 # Ignore build directory
 /build/

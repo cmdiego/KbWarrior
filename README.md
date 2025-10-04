@@ -2,7 +2,7 @@
 
 Follow these steps to configure and compile the project.
 
-## 1. Compile the Raylib Library using MinGW64
+## 1. Build the Raylib Library
    - Navigate to the Raylib source directory:
      ```bash
      cd ./depends/raylib/src/
@@ -20,25 +20,55 @@ Follow these steps to configure and compile the project.
      cp raylib.h ../../inc/
      ```
 
-## 2. Ensure No Existing Build Directory
-   - If the `./build` directory exists, clean it up:
+## 2. Clean Any Old Build
+   - If the `./build` directory exists, remove it or clean it up:
+     ```bash
+     rm -rf build/
+     ```
+   - (Alternatively, run:)
      ```bash
      git clean -fdX
      ```
 
-## 3. Configure the Project with CMake and MinGW64
-   - Make sure MinGW64 is included in your environment `PATH`.
-   - Configure the project:
+## 3. Configure the Project with CMake
+   - Configure the project (cross-platform, generator depends on OS):
      ```bash
-     cmake -S . -B build -G "MinGW Makefiles"
+     cmake -S . -B build
      ```
-     - `-S .` : Specifies the source directory (current).
-     - `-B build` : Specifies the build directory (`build/`).
-     - `-G "MinGW Makefiles"` : Uses the MinGW Makefiles generator.
-   - Build the project:
+     - `-S .` : Source directory (current).
+     - `-B build` : Build directory (`build/`).
+     - Optionally add `-G "MinGW Makefiles"` if you are on Windows with MinGW.
+
+## 4. Build the Project
+   - Build using CMake:
      ```bash
-     cmake --build build -v
+     cmake --build build -j
      ```
 
-## 4. Run the Executable
-   - The executable can be found in the `/build/bin/` folder.
+## 5. Run the Executable
+   - The compiled game will be inside:
+     ```
+     ./build/bin/KbWarrior
+     ```
+
+## 6. Optional: Use Bash Helper Scripts
+   - Instead of typing the above commands:
+     ```bash
+     ./scripts/build.sh   # build the project
+     ./scripts/run.sh     # run the game
+
+```
+
+## Files
+
+KbWarrior/
+├── assets/              # images, sounds, fonts, etc.
+├── include/             # headers (Game, Scene, etc.)
+├── src/                 # source files
+│   ├── core/            # Game loop, Scene base
+│   └── scenes/          # Menu, Gameplay, etc.
+├── inc/                 # raylib.h (from Raylib build)
+├── lib/                 # libraylib.a (from Raylib build)
+├── scripts/             # build.sh, run.sh, etc.
+├── CMakeLists.txt
+└── README.md
