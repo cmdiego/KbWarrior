@@ -13,8 +13,8 @@ public:
   FontRAII &operator=(const FontRAII &) = delete; // copy assignment
 
   // Allow move operators
-  FontRAII(FontRAII &&other) noexcept;       // move ctor
-  FontRAII &operator=(FontRAII &&) noexcept; // move assignment
+  FontRAII(FontRAII &&other) noexcept;            // move ctor
+  FontRAII &operator=(FontRAII &&other) noexcept; // move assignment
 
   bool valid() const;
   const Font &get() const;

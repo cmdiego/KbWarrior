@@ -1,4 +1,3 @@
-#pragma onca
 #include "resources/TextureRAII.hpp"
 #include "raylib.h"
 #include <utility> // std::exchange
@@ -6,7 +5,7 @@
 // Load-from-path constructor
 TextureRAII::TextureRAII(const std::string &path) {
   tex_ = LoadTexture(path.c_str());
-  if (tex_ == 0) {
+  if (!valid()) {
     TraceLog(LOG_WARNING, "TextureRAII: failed to load texture: %s",
              path.c_str());
   }

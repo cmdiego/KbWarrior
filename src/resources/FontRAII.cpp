@@ -1,4 +1,3 @@
-#pragma once
 #include "resources/FontRAII.hpp"
 #include "raylib.h"
 #include <utility>
@@ -30,7 +29,7 @@ FontRAII::FontRAII(FontRAII &&other) noexcept
     // set font_ to what other.font_ was, set other to {}
     : font_{std::exchange(other.font_, {})} {}
 
-FontRAII &FontRAII::operator=(const FontRAII &&other) noexcept {
+FontRAII &FontRAII::operator=(FontRAII &&other) noexcept {
   if (this != &other) {
     if (valid()) {
       UnloadFont(font_);
