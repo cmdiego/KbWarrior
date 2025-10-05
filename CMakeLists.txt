@@ -21,7 +21,7 @@ add_executable(${PROJECT_NAME} ${KBW_SOURCES} ${KBW_HEADERS})
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include")
 
 # --- Raylib ---
-set(RAYLIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/inc")
+set(RAYLIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 set(RAYLIB_LIBRARY     "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
 
 if (NOT EXISTS "${RAYLIB_INCLUDE_DIR}/raylib.h")

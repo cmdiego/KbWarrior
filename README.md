@@ -64,8 +64,13 @@ Follow these steps to configure and compile the project.
 KbWarrior/
 ├── assets/              # images, sounds, fonts, etc.
 ├── include/             # headers (Game, Scene, etc.)
+|   ├── core/            # core headers
+|   ├── scenes/          # scene interfaces
+|   ├── resources/       # RAII headers
+|   └── raylib.h         # copy of raylib.h lib
 ├── src/                 # source files
 │   ├── core/            # Game loop, Scene base
+│   ├── resources/       # RAII interfaces
 │   └── scenes/          # Menu, Gameplay, etc.
 ├── inc/                 # raylib.h (from Raylib build)
 ├── lib/                 # libraylib.a (from Raylib build)
