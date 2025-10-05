@@ -1,4 +1,3 @@
-#pragma once
 #include "resources/MusicRAII.hpp"
 #include "raylib.h"
 #include <utility>

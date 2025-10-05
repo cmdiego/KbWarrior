@@ -15,6 +15,8 @@ public:
   const Scene &top() const;
 
   bool empty() const noexcept { return stack_.empty(); }
+  std::size_t size() const noexcept { return stack_.size(); }
+  void clear();
 
 private:
   std::vector<ScenePtr> stack_;
