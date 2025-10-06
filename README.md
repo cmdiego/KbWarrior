@@ -22,13 +22,13 @@ Follow these steps to configure and compile the project.
      ```bash
      make
      ```
-   - Copy the compiled library file to the `./lib` directory:
+   - Copy the compiled library file to the `./lib` directory, if the `./lib` dir doesn't exist, make it:
      ```bash
-     cp libraylib.a ../../lib/
+     cp libraylib.a ../../../lib/
      ```
-   - Copy the header file to the `./inc` directory:
+   - Copy the header file to the `./include` directory:
      ```bash
-     cp raylib.h ../../include/
+     cp raylib.h ../../../include/
      ```
 
 ## 2. Clean Any Old Build
@@ -41,7 +41,7 @@ Follow these steps to configure and compile the project.
      git clean -fdX
      ```
 
-## 3. Configure the Project with CMake
+## 3. Configure the Project with CMake -- Or skip to step 6
    - Configure the project (cross-platform, generator depends on OS):
      ```bash
      cmake -S . -B build
