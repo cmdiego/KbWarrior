@@ -83,7 +83,6 @@ KbWarrior/
 │   ├── core/            # Game loop, Scene base
 │   ├── resources/       # RAII interfaces
 │   └── scenes/          # Menu, Gameplay, etc.
-├── inc/                 # raylib.h (from Raylib build)
 ├── lib/                 # libraylib.a (from Raylib build)
 ├── scripts/             # build.sh, run.sh, etc.
 ├── CMakeLists.txt
