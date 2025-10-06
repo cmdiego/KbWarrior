@@ -1,11 +1,14 @@
-# Ignore config
-.vs
-.vscode
+# VS Code (only the settings file)
+.vscode/settings.json
 
-# Ignore build directory
+# clangd cache
+/.cache/
+
+# Build directories (root only)
+#/build/ if you only want the root build dir
 /build/
 
-# Ignore lib
+# Local libs (root only)
 /lib/
 
 #inc
@@ -24,26 +27,27 @@ compile_commands.json
 Testing/
 CTestTestfile.cmake
 
-# Build artifacts
-/*.exe
-/*.dll
-/*.so
-/*.dylib
-/*.app
-/*.lib
-/*.a
-/*.exp
-/*.pdb
-/*.ilk
-/*.o
-/*.obj
+# Build artifacts (usually end up under build/, but just in case)
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+*.lib
+*.a
+*.exp
+*.pdb
+*.ilk
+*.o
+*.obj
 
 # IDE-specific files
 *.vcxproj*
 *.sln
 *.ninja
+*.DS_Store
 *.ds_store
-*.vs/
+.vs/
 
 # Logs
 build.log

@@ -1,80 +1,57 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 project(KbWarrior LANGUAGES CXX)
 
-# Set C++ standard to C++17
-set(CMAKE_CXX_STANDARD 17)
+# C++ standard
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-# Include directories
-include_directories(inc)
-
-# Check for Raylib header
-if (NOT EXISTS "${CMAKE_SOURCE_DIR}/inc/raylib.h")
-    message(FATAL_ERROR "Error: raylib.h not found in inc directory")
+# Warnings
+if (MSVC)
+    add_compile_options(/W4 /permissive-)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# Project executables
-file(GLOB SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME} ${SRC_FILES})
-set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+# Source files
+file(GLOB_RECURSE KBW_SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE KBW_HEADERS "${CMAKE_SOURCE_DIR}/include/*.hpp")
 
-# OS-specific configurations
+add_executable(${PROJECT_NAME} ${KBW_SOURCES} ${KBW_HEADERS})
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include")
+
+# --- Raylib ---
+set(RAYLIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
+set(RAYLIB_LIBRARY     "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
+
+if (NOT EXISTS "${RAYLIB_INCLUDE_DIR}/raylib.h")
+    message(FATAL_ERROR "raylib.h not found in inc/")
+endif()
+if (NOT EXISTS "${RAYLIB_LIBRARY}")
+    message(FATAL_ERROR "libraylib.a not found in lib/")
+endif()
+
+add_library(raylib STATIC IMPORTED)
+set_target_properties(raylib PROPERTIES
+    IMPORTED_LOCATION "${RAYLIB_LIBRARY}"
+    INTERFACE_INCLUDE_DIRECTORIES "${RAYLIB_INCLUDE_DIR}"
+)
+
+# Link platform-specific
 if (WIN32)
-    # Windows-specific settings using MinGW
-
-    # Check for Raylib library
-    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
-        message(FATAL_ERROR "Error: libraylib.a not found in lib directory")
-    endif()
-
-    # Add Raylib as an imported library
-    add_library(raylib STATIC IMPORTED)
-    set_target_properties(raylib PROPERTIES
-        IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/libraylib.a"
-        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/inc"
-    )
-
-    # Link libraries
     target_link_libraries(${PROJECT_NAME} PRIVATE raylib
-        -static-libgcc -static-libstdc++  # Statically link GCC and stdc++ libraries
-        opengl32
-        gdi32
-        winmm
+        -static-libgcc -static-libstdc++
+        opengl32 gdi32 winmm
     )
-elseif (UNIX)
-    # Unix-like OS (Linux, macOS)
-
-    # Check for Raylib library
-    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/lib/libraylib.a")
-        message(FATAL_ERROR "Error: libraylib.a not found in lib directory")
-    endif()
-
-    # Add Raylib as an imported library
-    add_library(raylib STATIC IMPORTED)
-    set_target_properties(raylib PROPERTIES
-        IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/libraylib.a"
-        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/inc"
+elseif (APPLE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE raylib
+        "-framework OpenGL"
+        "-framework Cocoa"
+        "-framework IOKit"
+        "-framework CoreVideo"
     )
-
-    # Link libraries
-    if (APPLE)
-        # macOS-specific libraries
-        target_link_libraries(${PROJECT_NAME} raylib
-            "-framework OpenGL"
-            "-framework Cocoa"
-            "-framework IOKit"
-            "-framework CoreVideo"
-        )
-    else()
-        # Linux-specific libraries
-        target_link_libraries(${PROJECT_NAME} raylib
-            m  # Math library
-            pthread
-            dl  # Dynamic loading library
-            rt  # Real-time extensions
-            X11  # X Window System
-        )
-    endif()
-else()
-    message(FATAL_ERROR "Unsupported operating system")
+else() # Linux/Unix
+    target_link_libraries(${PROJECT_NAME} PRIVATE raylib
+        m pthread dl rt X11
+    )
 endif()
