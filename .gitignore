@@ -11,6 +11,9 @@
 # Local libs (root only)
 /lib/
 
+#inc
+/inc/
+
 # CMake generated files
 CMakeCache.txt
 CMakeFiles/
