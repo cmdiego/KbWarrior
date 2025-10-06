@@ -16,7 +16,7 @@ Follow these steps to configure and compile the project.
 ## 1. Build the Raylib Library
    - Navigate to the Raylib source directory:
      ```bash
-     cd ./depends/raylib/src/
+     cd ./external/raylib/src/
      ```
    - Compile the library:
      ```bash
@@ -28,7 +28,7 @@ Follow these steps to configure and compile the project.
      ```
    - Copy the header file to the `./inc` directory:
      ```bash
-     cp raylib.h ../../inc/
+     cp raylib.h ../../include/
      ```
 
 ## 2. Clean Any Old Build
