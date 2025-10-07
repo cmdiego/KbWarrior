@@ -1,5 +1,8 @@
 #pragma once
 #include "core/Scene.hpp"
+#include "resources/FontRAII.hpp"
+#include "resources/MusicRAII.hpp"
+#include "resources/TextureRAII.hpp"
 
 class MenuScene : public Scene {
 public:
@@ -10,5 +13,7 @@ public:
   void render() override;
 
 private:
-  // Insert resource wrappers here (RAII)
+  TextureRAII bgTexture_;
+  MusicRAII bgMusic_;
+  FontRAII titleFont_;
 };
